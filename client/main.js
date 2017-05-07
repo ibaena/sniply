@@ -1,22 +1,21 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-import './main.html';
+import Header from './components/header';
+import LinkCreate from './components/link_create';
+import LinkList from './components/link_list';
+import { Links } from '../imports/collections/link';
 
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
-});
+const App = () => {
+  return (
+    <div>
+      <Header />
+      <LinkCreate />
+      <LinkList />
+    </div>
+  );
+};
 
-Template.hello.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
-});
-
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
+Meteor.startup(function(){
+  ReactDOM.render(<App />, document.querySelector('.render-target'));
 });
