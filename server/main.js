@@ -18,7 +18,7 @@ function onRoute(req, res, next) {
   const link = Links.findOne({token:req.params.token});
   // if link obj found redirect user
   if (link) {
-    console.log(link);
+    Links.update(link,{ $inc: {clicks:1} });
 
     res.writeHead(307,{'Location': link.url});
     res.end();
